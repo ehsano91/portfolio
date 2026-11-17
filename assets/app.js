@@ -103,33 +103,26 @@
   });
 })();
 
-// Project videos: no autoplay for people who ask for less motion.
-// CSS can't stop autoplay, so drop it, show the poster and a play control.
+// Project videos: still until asked. Mouse: plays while hovered.
+// Touch, or keyboard: tap / Enter / Space plays and pauses. Slowed to 70%.
 (function () {
-  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  function apply() {
-    if (!mq.matches) return;
-    document.querySelectorAll('video[autoplay]').forEach(function (v) {
-      v.removeAttribute('autoplay');
-      v.autoplay = false;
-      v.pause();
-      v.controls = true;
-      v.load();
+  var hover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  document.querySelectorAll('.vid video').forEach(function (v) {
+    var box = v.parentNode;
+    v.defaultPlaybackRate = 0.7;
+    function play() { v.playbackRate = 0.7; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    function pause() { v.pause(); }
+    function toggle() { if (v.paused) play(); else pause(); }
+    v.addEventListener('play', function () { box.classList.add('is-playing'); });
+    v.addEventListener('pause', function () { box.classList.remove('is-playing'); });
+    if (hover) {
+      v.addEventListener('mouseenter', play);
+      v.addEventListener('mouseleave', pause);
+    } else {
+      v.addEventListener('click', toggle);
+    }
+    v.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     });
-  }
-  apply();
-  if (mq.addEventListener) mq.addEventListener('change', apply);
-
-  // Play only while on screen (saves battery), and start reliably even when
-  // the browser skipped autoplay for an off-screen video.
-  if (!('IntersectionObserver' in window)) return;
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      var v = e.target;
-      if (mq.matches || !v.autoplay) return;
-      if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); }
-      else v.pause();
-    });
-  }, { threshold: 0.25 });
-  document.querySelectorAll('video[autoplay]').forEach(function (v) { io.observe(v); });
+  });
 })();
