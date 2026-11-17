@@ -1,6 +1,6 @@
 # Ehsan Fazlhashemi: things I have built
 
-**Website: https://ehsano91.github.io/portfolio/** (this repo, served by GitHub Pages from `index.html`).
+**Website: https://ehsan-fazlhashemi.vercel.app/** (this repo, served by Vercel from `index.html`; every push to `main` redeploys).
 
 Plain-language write-ups, from the user's point of view, of products I have
 designed, shipped and run. Each one keeps its screenshots here so the record
