@@ -127,7 +127,7 @@
     entries.forEach(function (e) {
       var v = e.target;
       if (mq.matches || !v.autoplay) return;
-      if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); }
       else v.pause();
     });
   }, { threshold: 0.25 });
