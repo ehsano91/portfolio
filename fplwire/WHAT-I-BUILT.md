@@ -103,7 +103,7 @@ and the free tier stays free.
 ## What Ehsan sees
 
 Ehsan runs the product from a private dashboard that answers the questions a
-product owner actually asks: how many people are in the app right now, how
+product manager actually asks: how many people are in the app right now, how
 many came today and this week, where they came from, how far they got before
 they left, and which screens they use. He can pick any date range.
 
@@ -135,7 +135,7 @@ A Python backend with SQLite databases, a React and TypeScript app, WordPress
 for the articles, Claude (Anthropic) for writing the articles and the Pro
 recommendations, Stripe for payments, Cloudflare in front, all on one small
 Hetzner server with scheduled jobs. Ehsan does not write the code by hand: he
-directs the work as a product owner and ships it with Claude Code as the
+directs the work as the product manager and ships it with Claude Code as the
 engineer, which means every feature above went from idea to production with
 one person. He is transparent about that because it is the point: the job is
 deciding what to build, checking that it works for real people, and shipping.

@@ -120,6 +120,8 @@
       v.addEventListener('mouseleave', pause);
     } else {
       v.addEventListener('click', toggle);
+      var hint = document.querySelector('.shots-hint');
+      if (hint) hint.hidden = false;
     }
     v.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
