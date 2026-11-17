@@ -102,3 +102,34 @@
     if (e.target.tagName === 'BUTTON') ask(e.target.textContent);
   });
 })();
+
+// Project videos: no autoplay for people who ask for less motion.
+// CSS can't stop autoplay, so drop it, show the poster and a play control.
+(function () {
+  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function apply() {
+    if (!mq.matches) return;
+    document.querySelectorAll('video[autoplay]').forEach(function (v) {
+      v.removeAttribute('autoplay');
+      v.autoplay = false;
+      v.pause();
+      v.controls = true;
+      v.load();
+    });
+  }
+  apply();
+  if (mq.addEventListener) mq.addEventListener('change', apply);
+
+  // Play only while on screen (saves battery), and start reliably even when
+  // the browser skipped autoplay for an off-screen video.
+  if (!('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (mq.matches || !v.autoplay) return;
+      if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else v.pause();
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('video[autoplay]').forEach(function (v) { io.observe(v); });
+})();
