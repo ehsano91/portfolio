@@ -1,3 +1,10 @@
+// Years in product, counted from 2016 like the bot (recruiter-bot lib/career.ts),
+// so "10+" becomes "11+" on 1 January with no edit. The HTML holds 10 as fallback.
+(function () {
+  var n = new Date().getFullYear() - 2016;
+  if (n >= 10) document.querySelectorAll('.yrs').forEach(function (el) { el.textContent = n; });
+})();
+
 // Theme toggle: remembers the choice in this browser only.
 (function () {
   var root = document.documentElement;
