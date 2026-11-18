@@ -221,3 +221,24 @@ main, .footer { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
 .links a:hover { border-color: var(--accent); }
 
 .chips[hidden] { display: none; }
+
+/* fplwire showcase: a laptop browser recording with an iPhone recording on its corner */
+.showcase { margin: 0 0 40px; }
+.duo { position: relative; padding: 0 9% 7% 0; }
+.browser { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: #12221a; }
+.browser-bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; background: #1b1e24; border-bottom: 1px solid #2a2e36; }
+.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3a3f48; }
+.browser-bar span { flex: 0 1 220px; margin: 0 auto; text-align: center; font: 12px var(--mono); color: #9aa3ad; background: #111317; border-radius: 6px; padding: 3px 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.browser video { display: block; width: 100%; height: auto; aspect-ratio: 1280 / 764; background: #12221a; cursor: pointer; }
+.mini-phone { position: absolute; right: 0; bottom: 0; width: 23%; padding: 6px; border-radius: 30px; background: #0b0d10; border: 1px solid #2a2e36; box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+.mini-phone video { display: block; width: 100%; height: auto; aspect-ratio: 400 / 866; border-radius: 24px; background: #12221a; cursor: pointer; }
+.duo video:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.showcase figcaption { font-size: 14px; color: var(--muted); margin-top: 12px; line-height: 1.45; }
+@media (max-width: 520px) {
+  .duo { padding: 0; }
+  .browser-bar { height: 22px; padding: 0 8px; gap: 4px; }
+  .browser-bar i { width: 7px; height: 7px; }
+  .browser-bar span { font-size: 10px; padding: 1px 8px; }
+  .mini-phone { position: relative; width: 56%; margin: -24px auto 0; border-radius: 26px; }
+  .mini-phone video { border-radius: 20px; }
+}

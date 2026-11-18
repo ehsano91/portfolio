@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=4">
 <script>
   try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -81,12 +81,16 @@
   </ul>
 
   <p class="shots-hint" hidden>Tap a screen to play it.</p>
-  <div class="shots shots-video">
-    <figure><div class="vid"><video muted loop playsinline preload="metadata" tabindex="0" poster="fplwire/videos/team.jpg?v=2" width="600" height="1298" aria-label="Screen recording: the app opens on an example team, each player showing projected points"><source src="fplwire/videos/team.mp4?v=2" type="video/mp4"><source src="fplwire/videos/team.webm?v=2" type="video/webm"></video></div><figcaption>Open the app: your team, with a projected score per player</figcaption></figure>
-    <figure><div class="vid"><video muted loop playsinline preload="metadata" tabindex="0" poster="fplwire/videos/recs.jpg?v=2" width="600" height="1298" aria-label="Screen recording: the Recs tab with this week's transfer and its points, then the transfer shown on the pitch"><source src="fplwire/videos/recs.mp4?v=2" type="video/mp4"><source src="fplwire/videos/recs.webm?v=2" type="video/webm"></video></div><figcaption>This week's pick, with the points behind it, then on your pitch</figcaption></figure>
-    <figure><div class="vid"><video muted loop playsinline preload="metadata" tabindex="0" poster="fplwire/videos/planner.jpg?v=2" width="600" height="1298" aria-label="Screen recording: the transfer planner filtered by typing Arsenal"><source src="fplwire/videos/planner.mp4?v=2" type="video/mp4"><source src="fplwire/videos/planner.webm?v=2" type="video/webm"></video></div><figcaption>The transfer planner, filtered to one club</figcaption></figure>
-    <figure><div class="vid"><video muted loop playsinline preload="metadata" tabindex="0" poster="fplwire/videos/briefing.jpg?v=2" width="600" height="1298" aria-label="Screen recording: the daily briefing with news about the squad and named sources"><source src="fplwire/videos/briefing.mp4?v=2" type="video/mp4"><source src="fplwire/videos/briefing.webm?v=2" type="video/webm"></video></div><figcaption>The daily homework, done: a briefing with named sources</figcaption></figure>
-  </div>
+  <figure class="showcase">
+    <div class="duo">
+      <div class="browser vid">
+        <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span>fplwire.com</span></div>
+        <video muted loop playsinline preload="metadata" tabindex="0" poster="fplwire/videos/showcase-desktop.jpg?v=1" width="1280" height="764" aria-label="Screen recording on a laptop: the fplwire blog, then the app on an example team, the reasons behind this week's transfer, the Recs tab, the transfer planner filtered to Arsenal, and the daily briefing"><source src="fplwire/videos/showcase-desktop.mp4?v=1" type="video/mp4"><source src="fplwire/videos/showcase-desktop.webm?v=1" type="video/webm"></video>
+      </div>
+      <div class="mini-phone vid"><video muted loop playsinline preload="metadata" tabindex="0" poster="fplwire/videos/showcase-phone.jpg?v=1" width="400" height="866" aria-label="Screen recording on an iPhone: the example team with projected points, this week's pick in Recs shown on the pitch, then the daily briefing"><source src="fplwire/videos/showcase-phone.mp4?v=1" type="video/mp4"><source src="fplwire/videos/showcase-phone.webm?v=1" type="video/webm"></video></div>
+    </div>
+    <figcaption>From an article on the blog to this week's transfer in the app, and the same app on an iPhone.</figcaption>
+  </figure>
 
   <div class="writeup">
     <div><h4>My part</h4><p>Everything. The idea, the product decisions, the design reviews, the legal pages, the pricing, and shipping every change. Claude Code is the engineer. I'm the product manager: I set the direction, make the calls and check the work.</p></div>
@@ -194,6 +198,6 @@
   <p class="fineprint">Built by me and Claude Code. No cookies, no tracking.</p>
 </footer>
 
-<script src="assets/app.js?v=5"></script>
+<script src="assets/app.js?v=6"></script>
 </body>
 </html>

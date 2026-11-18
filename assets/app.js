@@ -112,26 +112,33 @@
 
 // Project videos: still until asked. Mouse: plays while hovered.
 // Touch, or keyboard: tap / Enter / Space plays and pauses. Slowed to 70%.
+// A .duo (desktop + phone recording) plays and pauses as one.
 (function () {
   var hover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  document.querySelectorAll('.vid video').forEach(function (v) {
-    var box = v.parentNode;
-    v.defaultPlaybackRate = 0.7;
-    function play() { v.playbackRate = 0.7; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-    function pause() { v.pause(); }
-    function toggle() { if (v.paused) play(); else pause(); }
-    v.addEventListener('play', function () { box.classList.add('is-playing'); });
-    v.addEventListener('pause', function () { box.classList.remove('is-playing'); });
+  var groups = [].slice.call(document.querySelectorAll('.duo'));
+  document.querySelectorAll('.vid').forEach(function (b) { if (!b.closest('.duo')) groups.push(b); });
+  groups.forEach(function (box) {
+    var vids = [].slice.call(box.querySelectorAll('video'));
+    function play() {
+      vids.forEach(function (v) { v.playbackRate = 0.7; var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+    }
+    function pause() { vids.forEach(function (v) { v.pause(); }); }
+    function toggle() { if (vids[0].paused) play(); else pause(); }
+    vids.forEach(function (v) {
+      v.defaultPlaybackRate = 0.7;
+      v.addEventListener('play', function () { box.classList.add('is-playing'); });
+      v.addEventListener('pause', function () { box.classList.remove('is-playing'); });
+      if (!hover) v.addEventListener('click', toggle);
+      v.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+    });
     if (hover) {
-      v.addEventListener('mouseenter', play);
-      v.addEventListener('mouseleave', pause);
+      box.addEventListener('mouseenter', play);
+      box.addEventListener('mouseleave', pause);
     } else {
-      v.addEventListener('click', toggle);
       var hint = document.querySelector('.shots-hint');
       if (hint) hint.hidden = false;
     }
-    v.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-    });
   });
 })();
