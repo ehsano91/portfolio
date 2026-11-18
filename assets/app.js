@@ -110,32 +110,63 @@
   });
 })();
 
-// Project videos: still until asked. Mouse: plays while hovered.
+// Project videos: still until asked. Mouse: plays while hovered, until the
+// visitor uses the play button or clicks a video; from then on it is theirs.
 // Touch, or keyboard: tap / Enter / Space plays and pauses. Slowed to 70%.
-// A .duo (desktop + phone recording) plays and pauses as one.
+// A .duo (desktop + phone recording) plays and pauses as one, and its control
+// bar (play/pause, time, timeline) follows the desktop recording.
 (function () {
   var hover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   var groups = [].slice.call(document.querySelectorAll('.duo'));
   document.querySelectorAll('.vid').forEach(function (b) { if (!b.closest('.duo')) groups.push(b); });
+  function fmt(t) { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ':' + ('0' + (t % 60)).slice(-2); }
   groups.forEach(function (box) {
     var vids = [].slice.call(box.querySelectorAll('video'));
+    var main = vids[0];
+    var manual = false;
     function play() {
       vids.forEach(function (v) { v.playbackRate = 0.7; var p = v.play(); if (p && p.catch) p.catch(function () {}); });
     }
     function pause() { vids.forEach(function (v) { v.pause(); }); }
-    function toggle() { if (vids[0].paused) play(); else pause(); }
+    function toggle() { if (main.paused) play(); else pause(); }
+    function take() { manual = true; toggle(); }
     vids.forEach(function (v) {
       v.defaultPlaybackRate = 0.7;
-      v.addEventListener('play', function () { box.classList.add('is-playing'); });
-      v.addEventListener('pause', function () { box.classList.remove('is-playing'); });
-      if (!hover) v.addEventListener('click', toggle);
+      v.addEventListener('click', take);
       v.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); take(); }
       });
     });
+    main.addEventListener('play', function () { box.classList.add('is-playing'); });
+    main.addEventListener('pause', function () { box.classList.remove('is-playing'); });
+
+    var bar = box.querySelector('.vc');
+    if (bar) {
+      var btn = bar.querySelector('.vc-play'), time = bar.querySelector('.vc-time'), seek = bar.querySelector('.vc-seek');
+      var dragging = false;
+      function sync() {
+        var d = main.duration || 0;
+        time.textContent = fmt(main.currentTime) + ' / ' + fmt(d);
+        if (!dragging && d) seek.value = Math.round(main.currentTime / d * 1000);
+        seek.style.setProperty('--p', (seek.value / 10) + '%');
+      }
+      main.addEventListener('timeupdate', sync);
+      main.addEventListener('loadedmetadata', sync);
+      main.addEventListener('play', function () { btn.setAttribute('aria-label', 'Pause the recordings'); });
+      main.addEventListener('pause', function () { btn.setAttribute('aria-label', 'Play the recordings'); });
+      btn.addEventListener('click', take);
+      seek.addEventListener('input', function () {
+        manual = true; dragging = true;
+        if (main.duration) main.currentTime = seek.value / 1000 * main.duration;
+        sync();
+      });
+      seek.addEventListener('change', function () { dragging = false; });
+      sync();
+    }
+
     if (hover) {
-      box.addEventListener('mouseenter', play);
-      box.addEventListener('mouseleave', pause);
+      box.addEventListener('mouseenter', function () { if (!manual) play(); });
+      box.addEventListener('mouseleave', function () { if (!manual) pause(); });
     } else {
       var hint = document.querySelector('.shots-hint');
       if (hint) hint.hidden = false;

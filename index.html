@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="stylesheet" href="assets/style.css?v=5">
 <script>
   try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -86,6 +86,11 @@
       <div class="browser vid">
         <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span>fplwire.com</span></div>
         <video muted loop playsinline preload="metadata" tabindex="0" poster="fplwire/videos/showcase-desktop.jpg?v=1" width="1280" height="764" aria-label="Screen recording on a laptop: the fplwire blog, then the app on an example team, the reasons behind this week's transfer, the Recs tab, the transfer planner filtered to Arsenal, and the daily briefing"><source src="fplwire/videos/showcase-desktop.mp4?v=1" type="video/mp4"><source src="fplwire/videos/showcase-desktop.webm?v=1" type="video/webm"></video>
+        <div class="vc">
+          <button type="button" class="vc-play" aria-label="Play the recordings"><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z"/></svg><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z"/></svg></button>
+          <span class="vc-time" aria-hidden="true">0:00 / 0:36</span>
+          <input class="vc-seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Position in the desktop recording">
+        </div>
       </div>
       <div class="mini-phone vid"><video muted loop playsinline preload="metadata" tabindex="0" poster="fplwire/videos/showcase-phone.jpg?v=1" width="400" height="866" aria-label="Screen recording on an iPhone: the example team with projected points, this week's pick in Recs shown on the pitch, then the daily briefing"><source src="fplwire/videos/showcase-phone.mp4?v=1" type="video/mp4"><source src="fplwire/videos/showcase-phone.webm?v=1" type="video/webm"></video></div>
     </div>
@@ -198,6 +203,6 @@
   <p class="fineprint">Built by me and Claude Code. No cookies, no tracking.</p>
 </footer>
 
-<script src="assets/app.js?v=6"></script>
+<script src="assets/app.js?v=7"></script>
 </body>
 </html>
